@@ -83,9 +83,10 @@ function makeCellTex(cell: Cell, solved: boolean, alpha: number): THREE.CanvasTe
   c.beginPath(); c.roundRect(p, p, S - p * 2, S - p * 2, r); c.closePath()
 
   if (solved) {
-    const g = c.createLinearGradient(0, 0, S, S)
-    g.addColorStop(0, "#ff6b35")
-    g.addColorStop(1, "#e04e1a")
+    // Rich orange gradient for solved cells
+    const g = c.createLinearGradient(p, p, S - p, S - p)
+    g.addColorStop(0, "#ff6a30")
+    g.addColorStop(1, "#e84d15")
     c.fillStyle = g
   } else if (cell.group > 0) {
     c.fillStyle = C.primaryLight
@@ -137,6 +138,7 @@ function makeCellTex(cell: Cell, solved: boolean, alpha: number): THREE.CanvasTe
   }
 
   const tex = new THREE.CanvasTexture(cv)
+  tex.colorSpace = THREE.SRGBColorSpace
   tex.anisotropy = 4
   return tex
 }
@@ -182,7 +184,7 @@ export default function RubiksCube() {
     renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.2
+    renderer.toneMappingExposure = 1.0
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFSoftShadowMap
     el.appendChild(renderer.domElement)
@@ -194,9 +196,9 @@ export default function RubiksCube() {
     camera.lookAt(0, 0, 0)
 
     /* ── Lighting ── */
-    scene.add(new THREE.AmbientLight(0xfff8f0, 0.55))
+    scene.add(new THREE.AmbientLight(0xfff8f0, 0.5))
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.8)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.4)
     keyLight.position.set(6, 10, 6)
     keyLight.castShadow = true
     keyLight.shadow.mapSize.set(1024, 1024)
@@ -295,8 +297,8 @@ export default function RubiksCube() {
                 const isSolved = cell.group > 0 && solved.has(cell.group)
                 const tex = makeCellTex(cell, isSolved, alpha)
                 const mat = new THREE.MeshPhysicalMaterial({
-                  map: tex, roughness: 0.18, metalness: 0.02,
-                  clearcoat: 0.55, clearcoatRoughness: 0.12, reflectivity: 0.35,
+                  map: tex, roughness: 0.22, metalness: 0.0,
+                  clearcoat: 0.4, clearcoatRoughness: 0.15, reflectivity: 0.3,
                 })
                 mats.push(mat)
                 faceMeta.push({ slotIdx: slot, faceIdx: fi, row, col })
@@ -441,7 +443,7 @@ export default function RubiksCube() {
     let rotIdx = 0
     let rotTriggered = false
 
-    // Build initial cubes
+    // Build initial cubes — start fresh, animation will reveal & solve
     buildCubes(0, solved, 0)
 
     /* ── Animate ── */
