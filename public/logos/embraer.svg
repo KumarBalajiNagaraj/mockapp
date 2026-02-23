@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <!-- Embraer-style mark: angular wing shape -->
+  <g fill="#003366">
+    <polygon points="2,20 18,8 18,14 8,20 18,26 18,32"/>
+    <polygon points="20,20 36,8 36,14 26,20 36,26 36,32"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="44" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="600" letter-spacing="4" fill="#003366">EMBRAER</text>
+</svg>

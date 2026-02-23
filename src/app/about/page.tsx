@@ -1,7 +1,9 @@
 "use client"
 
 import { useReveal } from "@/lib/useReveal"
+import Image from "next/image"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import {
   ArrowRight,
   Linkedin,
@@ -15,13 +17,15 @@ import {
   Briefcase,
 } from "lucide-react"
 
+const LocationMap = dynamic(() => import("@/components/LocationMap"), { ssr: false })
+
 /* ─── Founders Data ─── */
 const founders = [
   {
     name: "Rajarajan Pudupatti",
     role: "Founder & CEO",
     bio: "AWS Hero Award recipient. 15+ years building enterprise platforms at scale. Previously led engineering teams at top-tier technology companies.",
-    initials: "RP",
+    photo: "/images/rajarajan.jpeg",
     linkedin: "#",
     twitter: "#",
   },
@@ -29,7 +33,7 @@ const founders = [
     name: "Balaji Nagaraj",
     role: "Chief AI Officer",
     bio: "Deep expertise in applied AI and machine learning. Architected production AI systems processing millions of transactions daily.",
-    initials: "BN",
+    photo: "/images/balaji.jpeg",
     linkedin: "#",
     twitter: "#",
   },
@@ -37,7 +41,7 @@ const founders = [
     name: "Srini Kolusu",
     role: "COO",
     bio: "Operations leader with a track record of scaling technology companies. Brings decades of experience in enterprise go-to-market and delivery.",
-    initials: "SK",
+    photo: "/images/srini.jpeg",
     linkedin: "#",
     twitter: "#",
   },
@@ -71,28 +75,12 @@ const differentiators = [
   },
 ]
 
-/* ─── Advisors ─── */
-const advisors = [
-  {
-    name: "Shiv Sundar",
-    role: "Co-Founder & COO, Esper.io",
-    note: "Series C startup, raised $100M+",
-    initials: "SS",
-  },
-  {
-    name: "Sudalai Rajkumar",
-    role: "Head of AI, Tiger Analytics",
-    note: "Quadruple Kaggle Grandmaster",
-    initials: "SR",
-  },
-]
-
 /* ─── Office Locations ─── */
 const locations = [
-  { city: "Bangalore", country: "India", label: "Engineering HQ", x: 68, y: 52 },
-  { city: "Chennai", country: "India", label: "AI Lab", x: 67, y: 56 },
-  { city: "Singapore", country: "Singapore", label: "APAC", x: 76, y: 60 },
-  { city: "Boston", country: "USA", label: "US Office", x: 26, y: 35 },
+  { city: "Atlanta", country: "USA", label: "HQ", lat: 33.749, lng: -84.388 },
+  { city: "Gothenburg", country: "Sweden", label: "AI Labs", lat: 57.709, lng: 11.975 },
+  { city: "India", country: "India", label: "Office", lat: 12.972, lng: 77.594 },
+  { city: "Dubai", country: "UAE", label: "Office", lat: 25.276, lng: 55.296 },
 ]
 
 /* ─── Career Traits ─── */
@@ -105,120 +93,6 @@ const careerTraits = [
   "You're excited about the intersection of AI and real business operations",
 ]
 
-/* ─── World Map SVG ─── */
-function WorldMapSVG() {
-  return (
-    <svg viewBox="0 0 800 400" fill="none" className="w-full h-auto">
-      {/* Simplified world map outline */}
-      {/* North America */}
-      <path
-        d="M80 120 Q100 100 140 95 Q180 90 200 100 Q220 90 240 95 Q260 100 270 120 Q280 140 270 160 Q260 180 240 190 Q220 200 200 220 Q190 240 170 250 Q150 240 130 230 Q110 220 100 200 Q90 180 80 160 Q70 140 80 120Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* South America */}
-      <path
-        d="M200 260 Q220 250 230 270 Q240 290 235 310 Q230 330 220 345 Q210 355 200 350 Q190 340 185 320 Q180 300 185 280 Q190 270 200 260Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* Europe */}
-      <path
-        d="M380 90 Q400 80 420 85 Q440 90 450 100 Q460 110 455 125 Q450 140 430 145 Q410 150 395 145 Q380 140 375 125 Q370 110 380 90Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* Africa */}
-      <path
-        d="M400 160 Q420 150 440 155 Q460 160 470 180 Q480 200 475 230 Q470 260 460 280 Q450 295 430 300 Q410 295 400 280 Q390 260 385 230 Q380 200 385 180 Q390 165 400 160Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* Asia (India region) */}
-      <path
-        d="M480 90 Q520 80 560 85 Q600 90 620 110 Q640 130 630 150 Q620 170 600 180 Q580 190 560 200 Q540 210 520 220 Q500 210 490 190 Q480 170 475 150 Q470 130 475 110 Q478 95 480 90Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* Southeast Asia */}
-      <path
-        d="M600 190 Q620 185 640 195 Q660 205 665 225 Q660 240 645 245 Q630 240 615 230 Q600 220 595 205 Q598 195 600 190Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-      {/* Australia */}
-      <path
-        d="M640 290 Q660 280 690 285 Q720 290 730 305 Q735 320 725 335 Q710 345 690 340 Q670 335 655 325 Q640 315 635 305 Q636 295 640 290Z"
-        fill="#f5f5f5"
-        stroke="#e5e5e5"
-        strokeWidth="1"
-      />
-
-      {/* Grid dots for texture */}
-      {Array.from({ length: 20 }).map((_, row) =>
-        Array.from({ length: 40 }).map((_, col) => (
-          <circle
-            key={`${row}-${col}`}
-            cx={col * 20 + 10}
-            cy={row * 20 + 10}
-            r="0.5"
-            fill="#e5e5e5"
-            opacity="0.5"
-          />
-        ))
-      )}
-
-      {/* Location markers */}
-      {locations.map((loc) => (
-        <g key={loc.city}>
-          {/* Pulse ring */}
-          <circle
-            cx={loc.x * 8}
-            cy={loc.y * 6.5}
-            r="12"
-            fill="none"
-            stroke="#ff612b"
-            strokeWidth="1"
-            opacity="0.3"
-          >
-            <animate
-              attributeName="r"
-              values="8;16;8"
-              dur="3s"
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="opacity"
-              values="0.4;0;0.4"
-              dur="3s"
-              repeatCount="indefinite"
-            />
-          </circle>
-          {/* Marker dot */}
-          <circle
-            cx={loc.x * 8}
-            cy={loc.y * 6.5}
-            r="5"
-            fill="#ff612b"
-          />
-          <circle
-            cx={loc.x * 8}
-            cy={loc.y * 6.5}
-            r="2"
-            fill="white"
-          />
-        </g>
-      ))}
-    </svg>
-  )
-}
-
 /* ─── Main About Page ─── */
 export default function AboutPage() {
   const heroRef = useReveal()
@@ -226,7 +100,6 @@ export default function AboutPage() {
   const foundersRef = useReveal()
   const platformRef = useReveal()
   const approachRef = useReveal()
-  const advisorsRef = useReveal()
   const locationsRef = useReveal()
   const careersRef = useReveal()
 
@@ -254,29 +127,27 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* Hero Team Image Placeholder */}
+          {/* Hero Team Image */}
           <div className="md:pl-10">
             <div className="relative w-full aspect-[21/9] bg-light-gray rounded-2xl overflow-hidden">
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-dark/5 via-transparent to-primary/5" />
-              {/* Placeholder pattern */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-4 mb-4">
-                    {founders.map((f) => (
-                      <div
-                        key={f.initials}
-                        className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-border flex items-center justify-center"
-                      >
-                        <span className="text-lg md:text-xl font-medium text-muted">
-                          {f.initials}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-[13px] text-muted">
-                    Team photo placeholder
-                  </p>
+                <div className="flex items-center justify-center gap-5">
+                  {founders.map((f) => (
+                    <div
+                      key={f.name}
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden ring-2 ring-white shadow-lg"
+                    >
+                      <Image
+                        src={f.photo}
+                        alt={f.name}
+                        width={80}
+                        height={80}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -355,21 +226,15 @@ export default function AboutPage() {
                   key={founder.name}
                   className="group text-center"
                 >
-                  {/* Headshot placeholder */}
+                  {/* Headshot */}
                   <div className="relative w-full aspect-[3/4] bg-light-gray rounded-xl overflow-hidden mb-6 group-hover:shadow-lg transition-shadow duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark/5" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-24 h-24 rounded-full bg-white border-2 border-border flex items-center justify-center">
-                        <span className="text-2xl font-medium text-muted">
-                          {founder.initials}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-3">
-                      <p className="text-[11px] text-muted text-center">
-                        Photo placeholder
-                      </p>
-                    </div>
+                    <Image
+                      src={founder.photo}
+                      alt={founder.name}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark/10" />
                   </div>
 
                   {/* Name & Role */}
@@ -552,66 +417,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ────── Advisors & Investors ────── */}
-      <section className="py-16 md:py-24 border-b border-border">
-        <div className="relative mx-auto max-w-container px-6 md:px-12">
-          <div className="absolute left-6 md:left-12 top-0 bottom-0 w-px bg-border hidden md:block" />
-          <div ref={advisorsRef} className="reveal md:pl-10">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-block w-8 h-px bg-primary" />
-              <span className="text-[13px] font-medium tracking-wider uppercase text-muted">
-                Advisors & Backers
-              </span>
-            </div>
-            <h2 className="text-2xl md:text-[36px] font-medium leading-tight tracking-tight mb-12">
-              Backed by <span className="text-primary">Industry Leaders</span>
-            </h2>
-
-            {/* Advisor Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-              {advisors.map((advisor) => (
-                <div
-                  key={advisor.name}
-                  className="group p-6 bg-white rounded-xl border border-border hover:border-primary/20 hover:shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300"
-                >
-                  <div className="w-14 h-14 rounded-full bg-light-gray flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
-                    <span className="text-[15px] font-medium text-muted group-hover:text-primary transition-colors">
-                      {advisor.initials}
-                    </span>
-                  </div>
-                  <h3 className="text-[16px] font-medium text-dark mb-1">
-                    {advisor.name}
-                  </h3>
-                  <p className="text-[13px] text-muted mb-2">{advisor.role}</p>
-                  <p className="text-[12px] text-primary font-medium">
-                    {advisor.note}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Investor Logos Placeholder */}
-            <div>
-              <p className="text-[12px] font-semibold tracking-wider uppercase text-muted mb-6">
-                Investors & Partners
-              </p>
-              <div className="flex flex-wrap items-center gap-8">
-                {["Partner 1", "Partner 2", "Partner 3"].map((partner) => (
-                  <div
-                    key={partner}
-                    className="h-10 px-8 bg-light-gray rounded-lg flex items-center justify-center"
-                  >
-                    <span className="text-[13px] font-medium text-muted/60">
-                      {partner}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ────── Locations ────── */}
       <section className="py-16 md:py-24 border-b border-border">
         <div className="relative mx-auto max-w-container px-6 md:px-12">
@@ -632,8 +437,8 @@ export default function AboutPage() {
             </p>
 
             {/* World Map */}
-            <div className="bg-white rounded-xl border border-border p-6 md:p-8 mb-8">
-              <WorldMapSVG />
+            <div className="rounded-xl border border-border overflow-hidden mb-8">
+              <LocationMap locations={locations} />
             </div>
 
             {/* Location Cards */}
@@ -685,7 +490,7 @@ export default function AboutPage() {
                   let&apos;s talk.
                 </p>
                 <Link
-                  href="#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 text-[14px] font-medium text-white bg-primary hover:bg-primary-hover transition-colors px-7 py-3.5 rounded-md"
                 >
                   <Briefcase size={16} />
@@ -731,7 +536,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 text-[14px] font-medium text-white bg-primary hover:bg-primary-hover transition-colors px-7 py-3.5 rounded-md"
               >
                 Get in Touch

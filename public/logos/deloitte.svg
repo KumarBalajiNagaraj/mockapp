@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Deloitte green dot -->
+  <circle cx="170" cy="30" r="5" fill="#86BC25"/>
+  <!-- Wordmark -->
+  <text x="4" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#000000">Deloitte</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" fill="none">
+  <!-- Palantir-style angular mark -->
+  <g fill="#1C1C1C">
+    <polygon points="4,20 14,4 24,20 14,36" opacity="0.25"/>
+    <polygon points="14,20 24,4 34,20 24,36" opacity="0.5"/>
+    <polygon points="8,20 18,8 28,20 18,32" opacity="0.75"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="40" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" letter-spacing="3" fill="#1C1C1C">PALANTIR</text>
+</svg>

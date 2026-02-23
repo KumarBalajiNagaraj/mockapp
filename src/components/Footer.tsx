@@ -14,7 +14,7 @@ const footerLinks = {
     { label: "Careers", href: "#" },
   ],
   Connect: [
-    { label: "Contact Us", href: "#contact" },
+    { label: "Contact Us", href: "/contact" },
     { label: "LinkedIn", href: "#" },
     { label: "Twitter", href: "#" },
   ],
@@ -36,7 +36,7 @@ export default function Footer() {
               Built Right. Delivered Fast.
             </p>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 text-[13px] font-medium text-white bg-dark-gray hover:bg-dark transition-colors duration-200 px-5 py-2.5 rounded-[6px]"
             >
               Get in Touch

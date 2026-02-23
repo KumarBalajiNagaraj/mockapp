@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 56" fill="none">
+  <defs>
+    <linearGradient id="cloud-outer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33BBFF"/>
+      <stop offset="100%" stop-color="#66CCFF"/>
+    </linearGradient>
+    <linearGradient id="cloud-mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#88DDFF"/>
+      <stop offset="100%" stop-color="#BBEBFF"/>
+    </linearGradient>
+    <linearGradient id="cloud-inner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#DDEEFF"/>
+      <stop offset="100%" stop-color="#F0F8FF"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer cloud -->
+  <path d="M10 36C5 36 2 32 2 28C2 24 5 21 8 20C8 14 13 9 20 9C25 9 29 12 31 16C32 15.5 34 15 35 15C40 15 44 19 44 24C44 29 40 32 36 33C36 35 34 36 32 36H10Z" fill="url(#cloud-outer)"/>
+  <!-- Middle cloud -->
+  <path d="M12 36C8 36 5 33 5 30C5 27 7 24 10 23C10 18 14 14 19 14C23 14 27 16 28 19C29 18.5 30 18 32 18C36 18 39 21 39 25C39 29 36 31 33 32C33 34 32 36 30 36H12Z" fill="url(#cloud-mid)"/>
+  <!-- Inner cloud -->
+  <path d="M14 36C11 36 8 34 8 31C8 28 10 26 12 25.5C12 22 15 18 20 18C24 18 26 20 27 22C28 21.5 29 21 30 21C33 21 35 23 35 26C35 29 33 31 31 31.5C31 34 30 36 28 36H14Z" fill="url(#cloud-inner)"/>
+  <!-- Text -->
+  <text x="50" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" fill="#000080">Cozy Systems</text>
+</svg>

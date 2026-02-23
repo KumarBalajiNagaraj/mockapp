@@ -83,10 +83,10 @@ function makeCellTex(cell: Cell, solved: boolean, alpha: number): THREE.CanvasTe
   c.beginPath(); c.roundRect(p, p, S - p * 2, S - p * 2, r); c.closePath()
 
   if (solved) {
-    // Rich orange gradient for solved cells
+    // Vibrant orange — extra saturated to stay punchy through ACES tonemapping
     const g = c.createLinearGradient(p, p, S - p, S - p)
-    g.addColorStop(0, "#ff6a30")
-    g.addColorStop(1, "#e84d15")
+    g.addColorStop(0, "#ff5500")
+    g.addColorStop(1, "#dd3500")
     c.fillStyle = g
   } else if (cell.group > 0) {
     c.fillStyle = C.primaryLight
@@ -168,6 +168,11 @@ function isExterior(gx: number, gy: number, gz: number, fi: number) {
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 }
+
+/* ─── Pre-compute max group per round ─── */
+const maxGroupPerRound = rounds.map(r =>
+  Math.max(0, ...r.faces.flatMap(f => f.flat().map(c => c.group)))
+)
 
 /* ─── Main Component ─── */
 export default function RubiksCube() {
@@ -318,23 +323,6 @@ export default function RubiksCube() {
       }
     }
 
-    /* ── Update textures only (for solve highlights) ── */
-    function updateTextures(roundIdx: number, solved: Set<number>, alpha: number) {
-      const round = rounds[roundIdx]
-      for (const sc of subCubes) {
-        for (const fm of sc.faceMeta) {
-          const mat = sc.mats[fm.slotIdx] as THREE.MeshPhysicalMaterial
-          if (!mat || mat === intMat) continue
-          const cell = round.faces[fm.faceIdx][fm.row][fm.col]
-          const isSolved = cell.group > 0 && solved.has(cell.group)
-          const oldTex = mat.map
-          mat.map = makeCellTex(cell, isSolved, alpha)
-          mat.needsUpdate = true
-          if (oldTex) setTimeout(() => oldTex.dispose(), 60)
-        }
-      }
-    }
-
     /* ── Layer rotation ── */
     interface LayerRot {
       pivot: THREE.Group
@@ -372,7 +360,7 @@ export default function RubiksCube() {
         pivot.remove(sc.mesh)
         cubeGroup.add(sc.mesh)
         sc.mesh.position.copy(tmp)
-        // Update grid
+        // Update grid positions
         const ox = sc.gx, oy = sc.gy, oz = sc.gz
         if (axis === "y") { sc.gx = dir > 0 ? oz : -oz; sc.gz = dir > 0 ? -ox : ox }
         if (axis === "x") { sc.gy = dir > 0 ? -oz : oz; sc.gz = dir > 0 ? oy : -oy }
@@ -431,7 +419,6 @@ export default function RubiksCube() {
     let currentRound = 0
     const solved = new Set<number>()
     let roundStart = 0
-    const ROUND_DUR = 6000
     const SOLVE_GAP = 450
     const ROT_TRIGGER = 4800
 
@@ -453,7 +440,13 @@ export default function RubiksCube() {
     let lastTexFrame = -1
 
     function animate() {
+      if (disposed) return
       raf = requestAnimationFrame(animate)
+      tick()
+    }
+
+    function tick() {
+      if (disposed) return
       const now = performance.now()
       const t = (now - t0) * 0.001
       const re = now - roundStart // round elapsed
@@ -462,7 +455,7 @@ export default function RubiksCube() {
       const alpha = Math.min(1, re / 1200)
 
       // Progressive solve
-      const maxG = Math.max(0, ...rounds[currentRound].faces.flatMap(f => f.flat().map(c => c.group)))
+      const maxG = maxGroupPerRound[currentRound]
       let dirty = false
       for (let g = 1; g <= maxG; g++) {
         if (re > 800 + g * SOLVE_GAP && !solved.has(g)) {
@@ -471,9 +464,9 @@ export default function RubiksCube() {
         }
       }
 
-      // Rebuild cubes on solve state change (guarantees texture correctness)
-      // Also rebuild during letter reveal phase (throttled)
-      const texFrame = Math.floor(re / 200)
+      // Rebuild cubes on solve state change for guaranteed visual correctness
+      // Also update during letter reveal phase (throttled every 150ms)
+      const texFrame = Math.floor(re / 150)
       if (!activeRot && (dirty || (re < 1500 && texFrame !== lastTexFrame))) {
         buildCubes(currentRound, solved, alpha)
         lastTexFrame = texFrame
@@ -504,14 +497,16 @@ export default function RubiksCube() {
         }
       }
 
-      // Rotation: auto + mouse
+      // Rotation: auto + mouse follow
       const ty = mouse.x * 0.3, tx = mouse.y * 0.2
       cubeGroup.rotation.y += ((t * 0.08 + ty) - cubeGroup.rotation.y) * 0.012
       cubeGroup.rotation.x += ((Math.sin(t * 0.05) * 0.06 + 0.3 + tx) - cubeGroup.rotation.x) * 0.012
 
-      // Entrance
+      // Entrance scale + subtle solve pulse
       const st = Math.min(1, (now - t0) / 1400)
-      cubeGroup.scale.setScalar(1 - Math.pow(1 - st, 4))
+      const baseScale = 1 - Math.pow(1 - st, 4)
+      const solvePulse = dirty ? 0.008 : 0
+      cubeGroup.scale.setScalar(baseScale + solvePulse)
       cubeGroup.position.y = Math.sin(t * 0.4) * 0.05
 
       // Particles
@@ -535,9 +530,19 @@ export default function RubiksCube() {
       renderer.render(scene, camera)
     }
 
-    setTimeout(() => { setVisible(true); animate() }, 80)
+    let disposed = false
+    // Fallback timer ensures animation runs even when RAF is throttled (e.g. background tabs)
+    const fallback = setInterval(() => { if (!disposed) tick() }, 50)
+    const startTimer = setTimeout(() => {
+      if (disposed) return
+      setVisible(true)
+      animate()
+    }, 80)
 
     return () => {
+      disposed = true
+      clearTimeout(startTimer)
+      clearInterval(fallback)
       cancelAnimationFrame(raf)
       window.removeEventListener("resize", onResize)
       window.removeEventListener("mousemove", onMouse)

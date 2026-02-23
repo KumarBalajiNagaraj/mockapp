@@ -198,7 +198,7 @@ export default function ResourcesPage() {
                 Detailed results, architectures, and lessons learned.
               </p>
               <Link
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 text-[13px] font-medium text-white bg-primary hover:bg-primary-hover transition-colors px-6 py-3 rounded-md"
               >
                 Get Notified

@@ -488,7 +488,7 @@ export default function ServicesPage() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 text-[14px] font-medium text-white bg-primary hover:bg-primary-hover transition-colors px-7 py-3.5 rounded-md"
               >
                 Talk to Us
