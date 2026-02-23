@@ -7,7 +7,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cream: "#fffefa",
+        cream: "#ffffff",
         primary: {
           DEFAULT: "#ff612b",
           hover: "#e8561f",

@@ -19,13 +19,13 @@ const items: ScrollItem[] = [
 function ScrollEntry({ item }: { item: ScrollItem }) {
   if (item.type === "logo") {
     return (
-      <div className="flex items-center justify-center px-8 md:px-10 py-4 shrink-0">
+      <div className="flex items-center justify-center px-8 md:px-12 py-4 shrink-0">
         <Image
           src={item.src}
           alt={item.name}
           width={item.width}
           height={item.height}
-          className="h-8 w-auto opacity-60 hover:opacity-90 transition-opacity duration-300 select-none grayscale"
+          className="h-5 md:h-7 w-auto opacity-50 hover:opacity-80 transition-opacity duration-300 select-none grayscale"
           draggable={false}
         />
       </div>
@@ -33,8 +33,8 @@ function ScrollEntry({ item }: { item: ScrollItem }) {
   }
 
   return (
-    <div className="flex items-center justify-center px-8 md:px-10 py-4 shrink-0">
-      <span className="text-[15px] md:text-[16px] font-medium tracking-tight text-muted/70 whitespace-nowrap select-none">
+    <div className="flex items-center justify-center px-8 md:px-12 py-4 shrink-0">
+      <span className="text-[13px] md:text-[15px] font-medium tracking-tight text-muted/50 whitespace-nowrap select-none">
         {item.label}
       </span>
     </div>
@@ -44,38 +44,21 @@ function ScrollEntry({ item }: { item: ScrollItem }) {
 export default function LogoScroll() {
   const ref = useReveal()
 
-  const row1 = items.slice(0, 4)
-  const row2 = items.slice(2)
-
   return (
-    <section className="py-16 md:py-20 border-b border-border">
+    <section className="py-12 md:py-20 border-b border-border bg-white">
       <div ref={ref} className="reveal">
         {/* Label */}
-        <p className="text-center text-[13px] font-medium tracking-wider uppercase text-muted mb-10">
-          Companies we work with
+        <p className="text-center text-[12px] md:text-[13px] font-medium tracking-wider uppercase text-muted mb-8 md:mb-10">
+          Trusted by
         </p>
 
-        {/* Row 1 - scroll left */}
-        <div className="relative overflow-hidden mb-4">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-cream to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-cream to-transparent z-10" />
-          <div className="marquee-track">
-            {[...row1, ...row1, ...row1, ...row1].map((item, i) => (
-              <ScrollEntry key={`r1-${i}`} item={item} />
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 - scroll left (offset) */}
+        {/* Single row marquee */}
         <div className="relative overflow-hidden">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-cream to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-cream to-transparent z-10" />
-          <div
-            className="marquee-track"
-            style={{ animationDelay: "-20s" }}
-          >
-            {[...row2, ...row2, ...row2, ...row2].map((item, i) => (
-              <ScrollEntry key={`r2-${i}`} item={item} />
+          <div className="absolute left-0 top-0 bottom-0 w-[20%] z-10" style={{ background: 'linear-gradient(to right, #ffffff 0%, #ffffff 30%, transparent 100%)' }} />
+          <div className="absolute right-0 top-0 bottom-0 w-[20%] z-10" style={{ background: 'linear-gradient(to left, #ffffff 0%, #ffffff 30%, transparent 100%)' }} />
+          <div className="marquee-track">
+            {[...items, ...items, ...items, ...items, ...items, ...items].map((item, i) => (
+              <ScrollEntry key={i} item={item} />
             ))}
           </div>
         </div>

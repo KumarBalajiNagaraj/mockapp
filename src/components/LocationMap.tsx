@@ -141,7 +141,7 @@ export default function LocationMap({ locations }: { locations: Location[] }) {
       `}</style>
       <div
         ref={containerRef}
-        className="w-full h-[360px] md:h-[440px] bg-[#fafaf8]"
+        className="w-full h-[360px] md:h-[440px] bg-white"
       />
     </>
   )

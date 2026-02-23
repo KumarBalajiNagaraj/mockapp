@@ -56,13 +56,13 @@ export default function Team() {
                 }`}
               >
                 {/* Photo */}
-                <div className="w-16 h-16 rounded-full overflow-hidden mb-5 ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-300">
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mb-5 ring-2 ring-transparent group-hover:ring-primary/20 transition-all duration-300">
                   <Image
                     src={member.photo}
                     alt={member.name}
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-cover"
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover grayscale"
                   />
                 </div>
                 <h3 className="text-[16px] font-medium text-dark mb-1">

@@ -10,7 +10,7 @@ import * as THREE from "three"
 
 /* ─── Theme ─── */
 const C = {
-  cream: "#fffefa",
+  cream: "#ffffff",
   primary: "#ff612b",
   primaryDark: "#d44d1a",
   primaryLight: "#fff0eb",

@@ -17,7 +17,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden pt-[120px]">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden pt-[100px] md:pt-[120px]">
       {/* Animated Background Orbs */}
       <div className="hero-orb hero-orb-primary" />
       <div className="hero-orb hero-orb-secondary" />
@@ -40,7 +40,7 @@ export default function Hero() {
       >
         <div className="flex items-center gap-4">
           {/* Text Content */}
-          <div className="max-w-xl lg:max-w-2xl flex-shrink-0">
+          <div className="w-full max-w-xl lg:max-w-2xl flex-shrink-0">
             {/* Overline Label */}
             <div className="flex items-center gap-3 mb-8">
               <span className="inline-block w-8 h-px bg-primary" />
@@ -50,7 +50,7 @@ export default function Hero() {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-[56px] font-medium leading-[1.08] tracking-tight text-dark mb-6">
+            <h1 className="text-[26px] sm:text-4xl md:text-5xl lg:text-[56px] font-medium leading-[1.15] tracking-tight text-dark mb-6">
               Applied AI for{" "}
               <span className="text-primary">Enterprise</span>{" "}
               Outcomes
@@ -62,7 +62,7 @@ export default function Hero() {
             </p>
 
             {/* Description */}
-            <p className="text-base text-muted/80 leading-relaxed max-w-lg mb-10">
+            <p className="text-[15px] md:text-base text-muted/80 leading-relaxed max-w-lg mb-10">
               We embed forward-deployed engineers and proprietary AI
               infrastructure to deliver real, operational results across
               your enterprise.

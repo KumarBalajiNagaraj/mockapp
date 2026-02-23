@@ -157,7 +157,7 @@ function ServiceIllustration({ pillarId }: { pillarId: string }) {
         {/* Document stack */}
         <rect x="60" y="40" width="160" height="200" rx="8" fill="#fff" stroke="#e5e5e5" strokeWidth="1.5" />
         <rect x="50" y="50" width="160" height="200" rx="8" fill="#fff" stroke="#e5e5e5" strokeWidth="1.5" />
-        <rect x="40" y="60" width="160" height="200" rx="8" fill="#fffefa" stroke="#e5e5e5" strokeWidth="1.5" />
+        <rect x="40" y="60" width="160" height="200" rx="8" fill="#ffffff" stroke="#e5e5e5" strokeWidth="1.5" />
         {/* Text lines on document */}
         <rect x="60" y="85" width="100" height="6" rx="3" fill="#e5e5e5" />
         <rect x="60" y="100" width="120" height="6" rx="3" fill="#e5e5e5" />
