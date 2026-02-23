@@ -8,11 +8,12 @@ type TextItem = { type: "text"; label: string }
 type ScrollItem = LogoItem | TextItem
 
 const items: ScrollItem[] = [
+  { type: "logo", name: "Conductiv", src: "/logos/conductiv.svg", width: 160, height: 40 },
   { type: "text", label: "Fortune 500 Company" },
-  { type: "logo", name: "Eideacs",      src: "/logos/eideacs-full.png",  width: 200, height: 77 },
-  { type: "text", label: "Airline Manufacturer from LATAM" },
+  { type: "logo", name: "E-ideacs", src: "/logos/eideacs-full.png", width: 200, height: 77 },
+  { type: "text", label: "Global Aerospace & Defense Leader" },
   { type: "logo", name: "Cozy Systems", src: "/logos/cozy-systems.svg", width: 170, height: 40 },
-  { type: "text", label: "YC Company" },
+  { type: "text", label: "YCombinator Startup" },
 ]
 
 function ScrollEntry({ item }: { item: ScrollItem }) {
