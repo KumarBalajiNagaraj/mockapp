@@ -1,13 +1,10 @@
 "use client"
 
 import { useReveal } from "@/lib/useReveal"
-import Image from "next/image"
 import Link from "next/link"
 import dynamic from "next/dynamic"
 import {
   ArrowRight,
-  Linkedin,
-  Twitter,
   Zap,
   Users,
   Target,
@@ -18,34 +15,6 @@ import {
 } from "lucide-react"
 
 const LocationMap = dynamic(() => import("@/components/LocationMap"), { ssr: false })
-
-/* ─── Founders Data ─── */
-const founders = [
-  {
-    name: "Rajarajan Pudupatti",
-    role: "Founder & CEO",
-    bio: "AWS Hero Award recipient. 15+ years building enterprise platforms at scale. Previously led engineering teams at top-tier technology companies.",
-    photo: "/images/rajarajan.jpeg",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Balaji Nagaraj",
-    role: "Chief AI Officer",
-    bio: "Deep expertise in applied AI and machine learning. Architected production AI systems processing millions of transactions daily.",
-    photo: "/images/balaji.jpeg",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Srini Kolusu",
-    role: "COO",
-    bio: "Operations leader with a track record of scaling technology companies. Brings decades of experience in enterprise go-to-market and delivery.",
-    photo: "/images/srini.jpeg",
-    linkedin: "#",
-    twitter: "#",
-  },
-]
 
 /* ─── Approach Differentiators ─── */
 const differentiators = [
@@ -97,7 +66,6 @@ const careerTraits = [
 export default function AboutPage() {
   const heroRef = useReveal()
   const missionRef = useReveal()
-  const foundersRef = useReveal()
   const platformRef = useReveal()
   const approachRef = useReveal()
   const locationsRef = useReveal()
@@ -125,32 +93,6 @@ export default function AboutPage() {
               Working solutions over process. Measurable outcomes over slide decks.
               Production systems over proofs of concept.
             </p>
-          </div>
-
-          {/* Hero Team Image */}
-          <div className="md:pl-10">
-            <div className="relative w-full aspect-[21/9] bg-light-gray rounded-2xl overflow-hidden">
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-dark/5 via-transparent to-primary/5" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex items-center justify-center gap-5">
-                  {founders.map((f) => (
-                    <div
-                      key={f.name}
-                      className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden ring-2 ring-white shadow-lg"
-                    >
-                      <Image
-                        src={f.photo}
-                        alt={f.name}
-                        width={80}
-                        height={80}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -198,75 +140,6 @@ export default function AboutPage() {
                   leverage.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ────── Founders Section ────── */}
-      <section className="py-16 md:py-24 border-b border-border">
-        <div className="relative mx-auto max-w-container px-6 md:px-12">
-          <div className="absolute left-6 md:left-12 top-0 bottom-0 w-px bg-border hidden md:block" />
-          <div ref={foundersRef} className="reveal md:pl-10">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-block w-8 h-px bg-primary" />
-              <span className="text-[13px] font-medium tracking-wider uppercase text-muted">
-                Founders
-              </span>
-            </div>
-            <h2 className="text-2xl md:text-[36px] font-medium leading-tight tracking-tight mb-12">
-              The People Behind{" "}
-              <span className="text-primary">Moring</span>
-            </h2>
-
-            {/* Founder Cards — 3 column grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
-              {founders.map((founder) => (
-                <div
-                  key={founder.name}
-                  className="group text-center"
-                >
-                  {/* Headshot */}
-                  <div className="relative w-full aspect-[3/4] bg-light-gray rounded-xl overflow-hidden mb-6 group-hover:shadow-lg transition-shadow duration-300">
-                    <Image
-                      src={founder.photo}
-                      alt={founder.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark/10" />
-                  </div>
-
-                  {/* Name & Role */}
-                  <h3 className="text-[18px] font-medium text-dark mb-1">
-                    {founder.name}
-                  </h3>
-                  <p className="text-[14px] text-primary font-medium mb-3">
-                    {founder.role}
-                  </p>
-                  <p className="text-[13px] text-muted leading-relaxed mb-4 max-w-xs mx-auto">
-                    {founder.bio}
-                  </p>
-
-                  {/* Social Links */}
-                  <div className="flex items-center justify-center gap-3">
-                    <a
-                      href={founder.twitter}
-                      className="w-9 h-9 rounded-full bg-light-gray hover:bg-primary/10 flex items-center justify-center transition-colors"
-                      aria-label={`${founder.name} on Twitter`}
-                    >
-                      <Twitter size={15} className="text-muted" />
-                    </a>
-                    <a
-                      href={founder.linkedin}
-                      className="w-9 h-9 rounded-full bg-light-gray hover:bg-primary/10 flex items-center justify-center transition-colors"
-                      aria-label={`${founder.name} on LinkedIn`}
-                    >
-                      <Linkedin size={15} className="text-muted" />
-                    </a>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
