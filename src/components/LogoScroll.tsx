@@ -10,7 +10,6 @@ type ScrollItem = LogoItem | TextItem
 const items: ScrollItem[] = [
   { type: "logo", name: "Conductiv", src: "/logos/conductiv.svg", width: 160, height: 40 },
   { type: "text", label: "Fortune 500 Company" },
-  { type: "logo", name: "E-ideacs", src: "/logos/eideacs-full.png", width: 200, height: 77 },
   { type: "text", label: "Global Aerospace & Defense Leader" },
   { type: "logo", name: "Cozy Systems", src: "/logos/cozy-systems.svg", width: 200, height: 70 },
   { type: "text", label: "YCombinator Startup" },
