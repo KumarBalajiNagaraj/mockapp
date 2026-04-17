@@ -114,7 +114,7 @@ function makeCellTex(cell: Cell, solved: boolean, alpha: number): THREE.CanvasTe
   if (cell.letter !== "·") {
     c.globalAlpha = Math.max(0, Math.min(1, alpha))
     c.fillStyle = solved ? "#ffffff" : C.dark
-    c.font = `700 ${S * 0.44}px "Afacad", sans-serif`
+    c.font = `700 ${S * 0.44}px "Inter", system-ui, -apple-system, sans-serif`
     c.textAlign = "center"
     c.textBaseline = "middle"
     if (solved) {

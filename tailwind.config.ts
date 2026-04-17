@@ -26,8 +26,7 @@ const config: Config = {
         "light-gray": "#f5f5f5",
       },
       fontFamily: {
-        sans: ["var(--font-primary)", "sans-serif"],
-        display: ["var(--font-display)", "serif"],
+        sans: ["var(--font-primary)", "system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       maxWidth: {
         container: "1400px",

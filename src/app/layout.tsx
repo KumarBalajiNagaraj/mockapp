@@ -1,12 +1,20 @@
 import type { Metadata } from "next"
-import { Afacad } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 
-const afacad = Afacad({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const inter = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Inter/Inter-VariableFont_opsz,wght.ttf",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf",
+      style: "italic",
+    },
+  ],
   variable: "--font-primary",
   display: "swap",
 })
@@ -60,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={afacad.variable}>
+    <html lang="en" className={inter.variable}>
       <body className="bg-cream text-dark antialiased">
         <Navbar />
         <main>{children}</main>

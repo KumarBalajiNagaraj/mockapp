@@ -24,6 +24,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-variation-settings: "opsz" 20;
 }
 
 body {
@@ -31,7 +33,7 @@ body {
   color: var(--color-dark);
   font-family: var(--font-primary);
   overflow-x: hidden;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.011em;
   line-height: 1.6;
 }
 
